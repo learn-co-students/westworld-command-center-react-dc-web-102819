@@ -15,16 +15,20 @@ class HostInfo extends Component {
   }
     // IMPORTANT: But whether it should be stateful or not is entirely up to you. Change this component however you like.
 
-    componentDidMount() {
-      console.log('host info mounted')
-    }
-
   componentDidUpdate() {
     console.log('host info updated')
   }
 
+  areaNameFormatter(areaName) {
+    return areaName.split("_").map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' ')
+  }
+
   handleChange = (e, {value}) => {
-    this.props.changeFunctions.area(value, this.props.host)
+    if (this.props.changeFunctions.area(value, this.props.host)) {
+      this.props.addLog(this.props.host.firstName + " set in area " + this.areaNameFormatter(value), "notify")
+    } else {
+      this.props.addLog("Too many hosts. Cannot add " + this.props.host.firstName + " to " + this.areaNameFormatter(value))
+    }
     this.setState({value: value})
     // the 'value' attribute is given via Semantic's Dropdown component.
     // Put a debugger in here and see what the "value" variable is when you pass in different options.

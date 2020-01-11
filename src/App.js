@@ -8,10 +8,6 @@ const urls = { 'hosts': 'http://localhost:4000/hosts', 'areas': 'http://localhos
 
 
 class App extends Component {
-  // As you go through the components given you'll see a lot of functional components.
-  // But feel free to change them to whatever you want.
-  // It's up to you whether they should be stateful or not.
-
   constructor() {
     super()
     this.state = {areas: [], hosts: [], selected: null}
@@ -26,20 +22,45 @@ class App extends Component {
   changeHostActiveStatus = (targetHost) => {
     let unchangedHosts = this.state.hosts.filter(host => host!== targetHost)
     targetHost.active = !targetHost.active
+
+    // let newLog = null
+
+    // if (targetHost.active) {
+    //   newLog = {msg: "Activated " + targetHost.firstName, type: "warn"}
+    // }
+
     this.setState({
-      hosts: [...unchangedHosts, targetHost]
+      hosts: [...unchangedHosts, targetHost].sort((a, b) => (a.id > b.id ? 1 : -1)),
+      // logs: !!newLog ? [newLog, ...this.state.logs] : this.state.logs
     })
+  }
+
+  areaAvailable = (area) => {
+    return area.limit > this.state.hosts.filter(host => host.area === area.name).length
   }
 
   changeHostArea = (newArea, targetHost) => {
-    let unchangedHosts = this.state.hosts.filter(host => host !== targetHost)
-    targetHost.area = newArea
-    this.setState({
-      hosts: [...unchangedHosts, targetHost]
-    })
+    if (this.areaAvailable(this.state.areas.find(area => area.name === newArea))) {
+      let unchangedHosts = this.state.hosts.filter(host => host !== targetHost)
+      targetHost.area = newArea
+      this.setState({
+        hosts: [...unchangedHosts, targetHost].sort((a, b) => (a.id > b.id ? 1 : -1))
+      })
+      return true
+    } else {
+      return false
+    }
   }
 
-  changeFunctions = {area: this.changeHostArea, selection: this.changeSelection, status: this.changeHostActiveStatus}
+  activateAll = (boolean) => {
+    this.setState((state) => ({
+      hosts: state.hosts.map(host => Object.assign(host, {active: boolean}))    }))
+  }
+
+  changeFunctions = {area: this.changeHostArea,
+    selection: this.changeSelection,
+    status: this.changeHostActiveStatus,
+    fullActivation: this.activateAll}
 
   componentDidMount() {
     for (const dataCategory in urls) {

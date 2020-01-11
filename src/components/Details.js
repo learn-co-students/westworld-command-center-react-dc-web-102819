@@ -12,7 +12,7 @@ const Details = props => {
     if (!props.host) {
       return (<Image size='medium' src={Images.westworldLogo}/>)
     } else {
-      return <HostInfo host={props.host} areasList={props.areasList} changeFunctions={props.changeFunctions} />
+      return <HostInfo host={props.host} areasList={props.areasList} addLog={props.addLog} changeFunctions={props.changeFunctions} />
     }
   }
 
