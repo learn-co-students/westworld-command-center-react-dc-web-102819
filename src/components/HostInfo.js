@@ -13,11 +13,6 @@ class HostInfo extends Component {
       value: this.props.host.area
     }
   }
-    // IMPORTANT: But whether it should be stateful or not is entirely up to you. Change this component however you like.
-
-  componentDidUpdate() {
-    console.log('host info updated')
-  }
 
   areaNameFormatter(areaName) {
     return areaName.split("_").map(word => word.charAt(0).toUpperCase() + word.substring(1)).join(' ')
@@ -27,7 +22,7 @@ class HostInfo extends Component {
     if (this.props.changeFunctions.area(value, this.props.host)) {
       this.props.addLog(this.props.host.firstName + " set in area " + this.areaNameFormatter(value), "notify")
     } else {
-      this.props.addLog("Too many hosts. Cannot add " + this.props.host.firstName + " to " + this.areaNameFormatter(value))
+      this.props.addLog("Too many hosts. Cannot add " + this.props.host.firstName + " to " + this.areaNameFormatter(value), 'error')
     }
     this.setState({value: value})
     // the 'value' attribute is given via Semantic's Dropdown component.
@@ -36,11 +31,16 @@ class HostInfo extends Component {
   }
 
   toggle = () => {
-    this.props.changeFunctions.status(this.props.host)
+    if (this.props.changeFunctions.status(this.props.host)) {
+      this.props.addLog("Activated " + this.props.host.firstName, 'warn')
+    } else {
+      this.props.addLog("Decomissioned " + this.props.host.firstName, 'notify')
+    }
   }
 
   render(){
     const {host} = this.props
+    console.log(host.active)
     return (
       <Grid>
         <Grid.Column width={6}>
@@ -61,7 +61,7 @@ class HostInfo extends Component {
                 <Radio
                   onChange={this.toggle}
                   label={host.active ? "Active" : "Decommissioned"}
-                  checked={host.active}
+                  checked={host.active} //buggy line
                   slider
                 />
               </Card.Meta>
