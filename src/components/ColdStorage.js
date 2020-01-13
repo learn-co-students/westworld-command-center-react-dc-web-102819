@@ -12,6 +12,8 @@ class ColdStorage extends Component {
 		    <Segment compact>
 		    	<HostList 
 		    		hosts={ this.props.hosts }
+		    		selectedHost={ this.props.selectedHost }
+		    		setSelectedHost={ this.props.setSelectedHost }
 				/>
 		    </Segment>
 		  </Segment.Group>

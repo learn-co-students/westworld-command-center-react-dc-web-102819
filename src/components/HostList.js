@@ -4,6 +4,7 @@ import Host from './Host'
 
 
 class HostList extends Component {
+	
 	render(){
 	  return(
 	    <Card.Group itemsPerRow={6} >
@@ -11,6 +12,8 @@ class HostList extends Component {
 		      	<Host 
 		      		key={index}
 		      		details={host}
+		      		isActive={this.props.selectedHost === host}
+		      		setSelectedHost={ this.props.setSelectedHost }
 	      		/>
 	  		)}
 	    </Card.Group>

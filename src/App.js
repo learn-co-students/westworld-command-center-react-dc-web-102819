@@ -29,8 +29,13 @@ class App extends Component {
   render(){
     return (
       <Segment id='app'>
-        <WestworldMap areas={ this.state.areas }  activeHosts={ this.state.activeHosts }/>
-        <Headquarters allHosts={ this.state.allHosts }/>
+        <WestworldMap
+          areas={ this.state.areas }
+          activeHosts={ this.state.activeHosts }
+        />
+        <Headquarters
+          allHosts={ this.state.allHosts }
+        />
       </Segment>
     )
   }

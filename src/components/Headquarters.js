@@ -7,7 +7,14 @@ import ColdStorage from './ColdStorage'
 
 
 class Headquarters extends Component {
-  // Remember, there's many ways to do this. This doesn't have to be a class component. It's up to you.
+  state = {
+    selectedHost: null
+  }
+
+  setSelectedHost = (host) => {
+    console.log("Selecting", host)
+    this.setState({ selectedHost: host })
+  }
 
   render(){
     return(
@@ -15,11 +22,15 @@ class Headquarters extends Component {
         <Grid.Column width={8}>
 
         {/* Something goes here.... */}
-        <ColdStorage hosts={ this.props.allHosts }/>
+        <ColdStorage
+          hosts={ this.props.allHosts }
+          selectedHost={ this.state.selectedHost }
+          setSelectedHost={ this.setSelectedHost }
+        />
 
         </Grid.Column>
         <Grid.Column width={5}>
-          <Details />
+          <Details host={ this.state.selectedHost } />
         </Grid.Column>
         <Grid.Column width={3}>
 

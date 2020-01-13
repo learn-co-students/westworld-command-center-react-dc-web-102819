@@ -3,15 +3,17 @@ import '../stylesheets/Host.css'
 import { Card } from 'semantic-ui-react'
 
 class Host extends React.Component {
-	state = {
-		selected: false
+
+	handleOnClick = () => {
+		this.props.setSelectedHost(this.props.details)
 	}
+	
 	render(){
-		console.log('Inside Host', this.props.details)
+		console.log('Inside Host', this.props)
 	  return(
 	    <Card
-	      className={ this.state.selected ? "host selected" : "host" }
-	      onClick={ () => console.log("host clicked", this.props.details)}
+	      className={ this.props.isActive ? "host selected" : "host" }
+	      onClick={ this.handleOnClick }
 	      image={ this.props.details.imageUrl }
 	      raised
 	    />
