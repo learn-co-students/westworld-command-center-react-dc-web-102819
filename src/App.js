@@ -7,7 +7,9 @@ import Headquarters from './components/Headquarters.js'
 
 class App extends Component {
   state = {
-    areas: []
+    areas: [],
+    allHosts: [],
+    activeHosts: []
   }
 
   // As you go through the components given you'll see a lot of functional components.
@@ -18,13 +20,17 @@ class App extends Component {
     fetch('http://localhost:4000/areas')
       .then(res => res.json())
       .then(areas => this.setState({ areas: areas }))
+
+    fetch('http://localhost:4000/hosts')
+      .then(res => res.json())
+      .then(hosts => this.setState({ allHosts: hosts }))
   }
 
   render(){
     return (
       <Segment id='app'>
-        <WestworldMap areas={ this.state.areas }/>
-        <Headquarters />
+        <WestworldMap areas={ this.state.areas }  activeHosts={ this.state.activeHosts }/>
+        <Headquarters allHosts={ this.state.allHosts }/>
       </Segment>
     )
   }

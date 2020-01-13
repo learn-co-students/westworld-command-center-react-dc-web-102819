@@ -15,7 +15,7 @@ class Headquarters extends Component {
         <Grid.Column width={8}>
 
         {/* Something goes here.... */}
-        <ColdStorage />
+        <ColdStorage hosts={ this.props.allHosts }/>
 
         </Grid.Column>
         <Grid.Column width={5}>

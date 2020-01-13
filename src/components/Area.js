@@ -7,7 +7,7 @@ const Area = (props) => (
   <div className='area' id={props.details.name}>
     <h3 className='labels'>{props.details.name}</h3>
 
-    {<HostList />}
+    {<HostList hosts={props.activeHosts}/>}
 
   </div>
 
@@ -15,7 +15,7 @@ const Area = (props) => (
 
 Area.propTypes = {
   hosts: function(props, propName, componentName){
-    if(props.hosts.length > props.limit){
+    if(props.activeHosts.length > props.limit){
       throw Error(
         `HEY!! You got too many hosts in ${props.name}. The limit for that area is ${props.limit}. You gotta fix that!`
       )
