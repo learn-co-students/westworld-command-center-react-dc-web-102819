@@ -2,31 +2,39 @@ import React from 'react';
 import '../stylesheets/Area.css'
 import HostList from './HostList.js'
 
-const Area = (props) => (
+class Area extends React.Component {
 
-  <div className='area' id={ props.details.name }>
-    <h3 className='labels'>{ props.details.name }</h3>
+  titleCaseArea() {
+    const nameArray = this.props.details.name.split('_')
+    return nameArray.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+  }
 
-    {
-      <HostList 
-        hosts={ props.hosts }
-        selectedHost={ props.selectedHost }
-        setSelectedHost={ props.setSelectedHost }
-      />
-    }
+  render(){
+    return (
+      <div className='area' id={ this.props.details.name }>
+        <h3 className='labels'>{ this.titleCaseArea() }</h3>
 
-  </div>
+        {
+          <HostList 
+            hosts={ this.props.hosts }
+            selectedHost={ this.props.selectedHost }
+            setSelectedHost={ this.props.setSelectedHost }
+          />
+        }
 
-)
-
-Area.propTypes = {
-  hosts: function(props, propName, componentName){
-    if(props.hosts.length > props.limit){
-      throw Error(
-        `HEY!! You got too many hosts in ${props.name}. The limit for that area is ${props.limit}. You gotta fix that!`
-      )
-    }
+      </div>
+    )
   }
 }
 
 export default Area;
+
+  // propTypes = () => {
+  //   hosts: function(this.props, propName, componentName){
+  //     if(this.props.hosts.length > this.props.limit){
+  //       throw Error(
+  //         `HEY!! You got too many hosts in ${this.props.name}. The limit for that area is ${props.limit}. You gotta fix that!`
+  //       )
+  //     }
+  //   }
+  // }

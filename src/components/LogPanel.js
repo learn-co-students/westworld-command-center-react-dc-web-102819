@@ -22,11 +22,17 @@ class LogPanel extends React.Component {
     return logs
   }
 
+  reverseLogs(){
+    let logs = [...this.props.logs]
+    return logs.reverse()
+  }
+
   render(){
+    console.log(this.props.logs)
     return(
       <Segment className="HQComps" id="logPanel">
         <pre>
-          {this.dummyLogs().map((log, i) => <p key={i} className={log.type}>{log.msg}</p>)}
+          {this.reverseLogs().map((log, i) => <p key={i} className={log.type}>{log.msg}</p>)}
         </pre>
         
         <Button
@@ -42,3 +48,5 @@ class LogPanel extends React.Component {
 }
 
 export default LogPanel
+
+//{this.dummyLogs().map((log, i) => <p key={i} className={log.type}>{log.msg}</p>)}
