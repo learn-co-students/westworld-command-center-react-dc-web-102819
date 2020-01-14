@@ -126,42 +126,42 @@ class App extends Component {
     if (this.state.status === null || this.state.status === "inactive") {
       updatedHosts.forEach(host => host.active = true)
       status = "active"
-      // this.setState({
-      //   hosts: updatedHosts,
-      //   status: "active",
-      //   logs: [...this.state.logs, Log.warn(`All hosts have been activated`)]
-      // })
+      this.setState({
+        hosts: updatedHosts,
+        status: "active",
+        logs: [...this.state.logs, Log.warn(`All hosts have been activated`)]
+      })
     } else if (this.state.status === 'active') {
       updatedHosts.forEach(host => host.active = false)
       status = "inactive"
-      // this.setState({
-      //   hosts: updatedHosts,
-      //   status: "inactive",
-      //   logs: [...this.state.logs, Log.warn(`All hosts have been deactivated`)]
-      // })
+      this.setState({
+        hosts: updatedHosts,
+        status: "inactive",
+        logs: [...this.state.logs, Log.warn(`All hosts have been deactivated`)]
+      })
     }
 
 
-    //BELOW IS TO PERSIST DATA TO THE BACK END - IT DOES NOT WORK.
-    const newHosts = []
-    console.log('updatesHosts =', updatedHosts)
-    updatedHosts.forEach(host => {
-      fetch(`http://localhost:4000/hosts/${host.id}`,{
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "accepts": "application/json"
-        },
-        body: JSON.stringify(host)
-      })
-        .then(res => res.json())
-        .then(newData => {
-          newHosts.push(newData)
-          // console.log(newHosts, newData)
-        })
-    })
+    // //BELOW IS TO PERSIST DATA TO THE BACK END - IT DOES NOT WORK.
+    // const newHosts = []
+    // console.log('updatesHosts =', updatedHosts)
+    // updatedHosts.forEach(host => {
+    //   fetch(`http://localhost:4000/hosts/${host.id}`,{
+    //     method: "PATCH",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "accepts": "application/json"
+    //     },
+    //     body: JSON.stringify(host)
+    //   })
+    //     .then(res => res.json())
+    //     .then(newData => {
+    //       newHosts.push(newData)
+    //       // console.log(newHosts, newData)
+    //     })
+    // })
 
-    console.log('newHosts = ',newHosts)
+    // console.log('newHosts = ',newHosts)
 
 
     //BELOW IS TO PERSIST DATA TO THE BACK END - IT DOES NOT WORK.
