@@ -30,6 +30,7 @@ class Headquarters extends Component {
 
         {/* and here. Take visual cues from the screenshot/video in the Readme. */}
         <LogPanel
+          coldStorage={ this.props.hosts }
           logs={ this.props.logs }
           status={ this.props.status }
           handleActivateAllHosts={ this.props.handleActivateAllHosts }

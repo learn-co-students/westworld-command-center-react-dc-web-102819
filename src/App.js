@@ -122,29 +122,28 @@ class App extends Component {
   handleActivateAllHosts = () => {
     console.log("activate all")
     const updatedHosts = [...this.state.hosts]
-    let status = this.state.status
-    if (this.state.status === null || this.state.status === "inactive") {
+    if (this.state.status === null || this.state.status === "deactivate") {
       updatedHosts.forEach(host => host.active = true)
-      status = "active"
       this.setState({
         hosts: updatedHosts,
-        status: "active",
+        status: "activate",
         logs: [...this.state.logs, Log.warn(`All hosts have been activated`)]
       })
-    } else if (this.state.status === 'active') {
+    } else if (this.state.status === 'activate') {
       updatedHosts.forEach(host => host.active = false)
-      status = "inactive"
       this.setState({
         hosts: updatedHosts,
-        status: "inactive",
+        status: "deactivated",
         logs: [...this.state.logs, Log.warn(`All hosts have been deactivated`)]
       })
     }
 
 
-    // //BELOW IS TO PERSIST DATA TO THE BACK END - IT DOES NOT WORK.
+    //BELOW IS TO PERSIST DATA TO THE BACK END - IT KINDA WORKS.
+    // Iterate && PATCH
+
     // const newHosts = []
-    // console.log('updatesHosts =', updatedHosts)
+    // console.log('updatesHosts = ', updatedHosts)
     // updatedHosts.forEach(host => {
     //   fetch(`http://localhost:4000/hosts/${host.id}`,{
     //     method: "PATCH",
@@ -157,17 +156,23 @@ class App extends Component {
     //     .then(res => res.json())
     //     .then(newData => {
     //       newHosts.push(newData)
-    //       // console.log(newHosts, newData)
+    //       console.log(newData)
     //     })
     // })
+    // console.log('newHosts = ', newHosts)
 
-    // console.log('newHosts = ',newHosts)
-
+    // this.setState({
+    //   hosts: updatedHosts,
+    //   status: this.state.status === "activate" ? "deactivate" : "activate",
+    //   logs: [...this.state.logs, Log.warn(`All hosts have been ${ this.state.status === "activate" ? "activated" : "deactivated" }`)]
+    // })
 
     //BELOW IS TO PERSIST DATA TO THE BACK END - IT DOES NOT WORK.
+    // BULK PUT
+
     // console.log("updatedHosts = ", updatedHosts)
     // fetch('http://localhost:4000/hosts', {
-    //   method: "PATCH",
+    //   method: "PUT",
     //   headers: {
     //     "Content-Type": "application/json",
     //     "accepts": "application/json"
@@ -176,12 +181,12 @@ class App extends Component {
     // })
     //   .then(res=> res.json())
     //   .then(modifiedHosts => {
-    //     console.log(modifiedHosts)
-        // this.setState({
-        //       hosts: modifiedHosts,
-        //       status: status,
-        //       logs: [...this.state.logs, Log.warn(`All hosts have been ${ status = "active" ? "activated" : "deactivated" }`)]
-        //     })
+    //     console.log("modifiedHosts = ", modifiedHosts)
+    //     // this.setState({
+    //     //       hosts: modifiedHosts,
+    //     //       status: status,
+    //     //       logs: [...this.state.logs, Log.warn(`All hosts have been ${ status = "active" ? "activated" : "deactivated" }`)]
+    //     //     })
     // })
   }
 
