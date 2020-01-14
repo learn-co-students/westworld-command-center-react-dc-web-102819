@@ -2,9 +2,12 @@ import React from 'react'
 import { Segment, Button } from 'semantic-ui-react';
 import { Log } from '../services/Log'
 
-const LogPanel = () => {
+class LogPanel extends React.Component {
+  state = {
+    logs: this.props.logs
+  }
 
-  const dummyLogs = () => {
+  dummyLogs = () => {
     // This is just to show you how this should work. But where should the log data actually get stored?
     // And where should we be creating logs in the first place?
     // Use the Log Service class (located in: 'src/services/Log') we've created anywhere you like.
@@ -19,22 +22,23 @@ const LogPanel = () => {
     return logs
   }
 
-  return(
-    <Segment className="HQComps" id="logPanel">
-      <pre>
-        {dummyLogs().map((log, i) => <p key={i} className={log.type}>{log.msg}</p>)}
-      </pre>
-      
-      {/* Button below is the Activate All/Decommisssion All button */}
-      <Button
-        fluid
-        color={"red"}
-        {/* This isn't always going to be the same color...*/}
-        content={"ACTIVATE ALL"}
-        {/* Should the button always read "ACTIVATE ALL"? When should it read "DECOMMISSION ALL"? */}
-      />
-    </Segment>
-  )
+  render(){
+    return(
+      <Segment className="HQComps" id="logPanel">
+        <pre>
+          {this.dummyLogs().map((log, i) => <p key={i} className={log.type}>{log.msg}</p>)}
+        </pre>
+        
+        <Button
+          fluid
+          color={ this.props.status === 'active' ? "green" : 'red' }
+          content={ this.props.status === 'active' ? "DECOMISSION ALL" : "ACTIVATE ALL" }
+          onClick={ this.props.handleActivateAllHosts }
+        />
+        
+      </Segment>
+    )
+  }
 }
 
 export default LogPanel

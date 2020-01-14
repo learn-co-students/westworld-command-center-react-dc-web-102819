@@ -7,9 +7,8 @@ class Host extends React.Component {
 	handleOnClick = () => {
 		this.props.setSelectedHost(this.props.details)
 	}
-	
+
 	render(){
-		console.log('Inside Host', this.props)
 	  return(
 	    <Card
 	      className={ this.props.isActive ? "host selected" : "host" }

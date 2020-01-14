@@ -4,10 +4,16 @@ import HostList from './HostList.js'
 
 const Area = (props) => (
 
-  <div className='area' id={props.details.name}>
-    <h3 className='labels'>{props.details.name}</h3>
+  <div className='area' id={ props.details.name }>
+    <h3 className='labels'>{ props.details.name }</h3>
 
-    {<HostList hosts={props.activeHosts}/>}
+    {
+      <HostList 
+        hosts={ props.hosts }
+        selectedHost={ props.selectedHost }
+        setSelectedHost={ props.setSelectedHost }
+      />
+    }
 
   </div>
 
@@ -15,7 +21,7 @@ const Area = (props) => (
 
 Area.propTypes = {
   hosts: function(props, propName, componentName){
-    if(props.activeHosts.length > props.limit){
+    if(props.hosts.length > props.limit){
       throw Error(
         `HEY!! You got too many hosts in ${props.name}. The limit for that area is ${props.limit}. You gotta fix that!`
       )

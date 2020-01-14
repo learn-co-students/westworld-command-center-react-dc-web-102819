@@ -11,7 +11,9 @@ class WestworldMap extends React.Component {
 	      	<Area 
 	      		key={area.name} 
 	      		details={ area }
-	      		activeHosts={this.props.activeHosts} 
+	      		hosts={this.props.activeHosts.filter(host => host.area === area.name)}
+	      		selectedHost={ this.props.selectedHost }
+	      		setSelectedHost={ this.props.setSelectedHost } 
 	  		/> 
 		  )}
 	    </Segment>

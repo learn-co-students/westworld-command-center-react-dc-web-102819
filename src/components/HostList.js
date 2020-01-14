@@ -10,9 +10,9 @@ class HostList extends Component {
 	    <Card.Group itemsPerRow={6} >
 		    { this.props.hosts.map((host, index) => 
 		      	<Host 
-		      		key={index}
-		      		details={host}
-		      		isActive={this.props.selectedHost === host}
+		      		key={ index }
+		      		details={ host }
+		      		isActive={ this.props.selectedHost === host }
 		      		setSelectedHost={ this.props.setSelectedHost }
 	      		/>
 	  		)}
